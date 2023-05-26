@@ -72,16 +72,15 @@ function cgvCheck() {
   *   La case des conditions générales est cochée, l'autre case est facultative / peut être laissée décochée.
   * alors valider
   * sinon pas valider
+  * @returns boolean
   */
-
-
  function validate(){
   let first = document.getElementById('first');
   let last = document.getElementById('last');
   if (isName(first.value)
       && isName(last.value)
-      && isNumber(quantity.value)
       && validEmail(email.value)
+      && isNumber(quantity.value)
       && isLocation()
       && cgv()
       ) {
@@ -92,16 +91,21 @@ function cgvCheck() {
 
 }
 
-
+/**
+ * Name validation
+ * retourne true si <= 2 caracters et est au bon format faux sinon
+ * @param {string} name 
+ * @returns boolean
+ */
 function isName (name){
-  let nameRegex = /^[a-zA-Z-\s]+$/;
-  if (name.length <= 1){
+  let nameRegex = /^[a-zA-Z-\s]+$/; // regex 
+  if (name.length <= 1){  // test de longueur
     console.log("trop court");
     return false;
   } else{
     console.log("c'est correct");
-    if (nameRegex.test(name) == true) {
-      console.log("c'est un nom");      
+    if (nameRegex.test(name) == true) { // test de formatage
+      console.log ("c'est un nom");      
       return true;
     } else {
       console.log("c'est pas un nom");
@@ -110,6 +114,12 @@ function isName (name){
   }
 }
 
+/**
+ * Validation du mail
+ * Retourne vrai si le mail est bien formater faux sinon
+ * @param {string} mail l'adresse mail
+ * @returns boolean
+ */
 function validEmail(mail) {
   let mailRegex = /^[a-z0-9-\.]+@[a-z0-9.-]+\.[a-z]{2,4}$/
   if (mail=='') {
@@ -127,6 +137,12 @@ function validEmail(mail) {
   
 }
 
+/**
+ * Test de quantity 
+ * retourne vrai si c'est un nombre
+ * @param {number} number 
+ * @returns boolean
+ */
 function isNumber(number) {
   let numberRegex = /^[0-9]+$/;
   // TODO: faire cas si c'est vide
@@ -139,10 +155,12 @@ function isNumber(number) {
   }
 }
 
+/**
+ * Test si une ville est cochée
+ * retourne vrai dés qu'une ville est coché
+ * @returns boolean
+ */
 function isLocation () {
-  /**
-   * tester si au moins un check
-   */
   let i = 1;
   while (document.getElementById('location'+i)) {
     if (document.getElementById('location'+i).checked) {
@@ -155,6 +173,10 @@ function isLocation () {
   return false;
 }
 
+/**
+ * test si la case CGV est coché
+ * @returns boolean
+ */
 function cgv () {
   if (cgvCheck() == 'coché') {
     return true;
