@@ -19,7 +19,8 @@ const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelector("#btn-close");
 
 const myForm = document.getElementById('myForm');
-
+const first = document.getElementById('first');
+const last = document.getElementById('last');
 const cgvCheckbox = document.getElementById('checkbox1')
 
 // launch modal event
@@ -27,6 +28,11 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal event
 closeBtn.addEventListener("click", closehModal);
+
+// firs name event
+first.addEventListener('focusout', isName);
+// last name event
+last.addEventListener('focusout', isName);
 
 // validation form event
 myForm.addEventListener('submit', validate);
@@ -75,8 +81,7 @@ function cgvCheck() {
   * @returns boolean
   */
  function validate(){
-  let first = document.getElementById('first');
-  let last = document.getElementById('last');
+  
   if (isName(first.value)
       && isName(last.value)
       && validEmail(email.value)
@@ -99,19 +104,18 @@ function cgvCheck() {
  */
 function isName (name){
   let nameRegex = /^[a-zA-Z-\s]+$/; // regex 
-  if (name.length <= 1){  // test de longueur
-    console.log("trop court");
-    return false;
-  } else{
-    console.log("c'est correct");
-    if (nameRegex.test(name) == true) { // test de formatage
-      console.log ("c'est un nom");      
-      return true;
-    } else {
-      console.log("c'est pas un nom");
-      return false;
+  if ((name.length > 2) && nameRegex.test(name)) {
+    console.log(name + " est un nom")
+    // test si data data-error-visible
+    
+    if (this.parentElement.getAttribute("data-error-visible") == true){
+      this.parentElement.removeAttribute("data-error-visible")
     }
+    return true
   }
+  console.log(name + " n'est pas un nom")
+  this.parentElement.setAttribute("data-error-visible", true)
+  return false
 }
 
 /**
