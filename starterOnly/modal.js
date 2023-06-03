@@ -7,7 +7,6 @@ function editNav() {
   }
 }
 
-// TODO: Implémenter entrées du formulaire
 // TODO: Ajouter validation ou messages d'erreur
 // TODO: Ajouter confirmation quand envoi réussi
 // TODO: Tests manuels
@@ -19,8 +18,21 @@ const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelector("#btn-close");
 
 const myForm = document.getElementById('myForm');
+
 const first = document.getElementById('first');
+const firstData = document.getElementById('firstData');
+
 const last = document.getElementById('last');
+const lastData = document.getElementById('lastData');
+
+const email = document.getElementById('email')
+const emailData = document.getElementById('emailData')
+
+const quantity = document.getElementById('quantity')
+const quantityData = document.getElementById('quantityData')
+
+const locationData = document.getElementById('locationData')
+
 const cgvCheckbox = document.getElementById('checkbox1')
 
 // launch modal event
@@ -30,32 +42,37 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 closeBtn.addEventListener("click", closehModal);
 
 // first name event
-// ! FIXME: le test ne se refait pas si on corrige le nom
-first.addEventListener('focusout', isFirst(), true);
-first.addEventListener('focusin', removeError(), true);
+first.addEventListener('focusout', function(e){
+  e.preventDefault()
+  isFirst()
+});
 
 // last name event
-//last.addEventListener('focusout', isName);
+last.addEventListener('focusout', function(e){
+  e.preventDefault()
+  isLast()
+});
+
+// email event
+email.addEventListener('focusout', function(e){
+  e.preventDefault()
+  isEmail()
+});
+
+// quantity event
+quantity.addEventListener('focusout', function(e){
+  e.preventDefault()
+  isQuantity()
+});
 
 // validation form event
 myForm.addEventListener('submit', function(e){
-  e.preventDefault();
-  validate();
-});
-
-/*myForm.addEventListener('submit', function(e){
-  if (isName(first.value)
-      && isName(last.value)
-      && validEmail(email.value)
-      && isNumber(quantity.value)
-      && isLocation()
-      && cgv()) {&
-    console.log('OK')
+  if (validate()) {
+    return true;
+  } else{
+    e.preventDefault();
   }
-  console.log('PAS OK')
-  e.preventDefault()
-
-})*/
+});
 
 // cgv checkbox event
 cgvCheckbox.addEventListener('click', cgvCheck)
@@ -72,17 +89,12 @@ function closehModal() {
 
 // cgv check event
 function cgvCheck() {
-  /**
-   * au click on on enleve ou pas le check
-   */
   if (cgvCheckbox.checked === true) {
-    //cgvCheckbox.checked = false;
     console.log('coché');
     return 'coché'
   }
   else{
     console.log('décoché');
-    //cgvCheckbox.checked = true;
     return 'décoché'
   }
 }
@@ -101,23 +113,16 @@ function cgvCheck() {
   * @returns boolean
   */
  function validate(){
-  console.log('event')
   if (isFirst()
-      //&& isName(last.value)
-      && validEmail(email.value)
-      && isNumber(quantity.value)
-      && isLocation()
+      && isLast()
+      && isEmail()
+      && isQuantity()
+      /*&& isLocation()
       && cgv()
+      */
       ) {
     return true;
-  } else {
-    return false;
   }
-
-}
-
-function removeError() {
-    this.parentElement.setAttribute("data-error-visible", false)
 }
 
 /**
@@ -128,30 +133,50 @@ function removeError() {
  */
 function isName (name){
   let nameRegex = /^[a-zA-Z-\s]+$/; // regex 
-  if ((name > 2) && nameRegex.test(name)) {
+  if ((name.length > 2) && nameRegex.test(name)) {
     console.log(name + " est un nom")
-    //this.parentElement.setAttribute("data-error-visible", false)
     return true
   }
   console.log(name + " n'est pas un nom")
-  console.log(name)
   return false
 }
 
+/**
+ * is first a valid name
+ * @returns boulean
+ */
 function isFirst() {
-  console.log(this)
-  this.parentElement.setAttribute("data-error-visible", false)
+  console.log(first.value)
   if (isName(first.value)) {
+    firstData.setAttribute("data-error-visible", false)
+    firstData.setAttribute("data-error","")
     return true
   }
-  this.parentElement.setAttribute("data-error-visible", true)
+  firstData.setAttribute("data-error-visible", true)
+  firstData.setAttribute("data-error","Veuillez entrer 2 caractères ou plus pour le champ du nom.")
 }
-
+/**
+ * is last a valid name
+ * @returns boulean
+ */
 function isLast() {
   if (isName(last.value)) {
+    lastData.setAttribute("data-error-visible", false)
+    lastData.setAttribute("data-error","")
     return true
   }
-  this.parentElement.setAttribute("data-error-visible", true)
+  lastData.setAttribute("data-error-visible", true)
+  lastData.setAttribute("data-error","Veuillez entrer 2 caractères ou plus pour le champ du nom.")
+}
+
+function isEmail() {
+  if (validEmail(email.value)) {
+    emailData.setAttribute("data-error-visible", false)
+    emailData.setAttribute("data-error","")
+    return true
+  }
+  emailData.setAttribute("data-error-visible", true)
+  emailData.setAttribute("data-error","Veuillez entrer un email valide.")
 }
 
 /**
@@ -162,19 +187,24 @@ function isLast() {
  */
 function validEmail(mail) {
   let mailRegex = /^[a-z0-9-\.]+@[a-z0-9.-]+\.[a-z]{2,4}$/
-  if (mail=='') {
-    console.log("mail vide")
-  return false;
-  } else {
-    if (mailRegex.test(mail) == true) {
-      console.log("mail valide")
-      return true;
-    } else {
-      console.log("mail non valide")
-      return false;
-    }
+  if (mail!="" && mailRegex.test(mail) == true) {
+    console.log("mail valide")
+    return true;
+  } 
+}
+
+/**
+ * is quantity a number
+ * @returns Boolean
+ */
+function isQuantity() {
+  if (isNumber(quantity.value)) {
+    quantityData.setAttribute("data-error-visible", false)
+    quantityData.setAttribute("data-error","")
+    return true
   }
-  
+  quantityData.setAttribute("data-error-visible", true)
+  quantityData.setAttribute("data-error","Veuillez entrer un nombre.")
 }
 
 /**
@@ -185,8 +215,7 @@ function validEmail(mail) {
  */
 function isNumber(number) {
   let numberRegex = /^[0-9]+$/;
-  // TODO: faire cas si c'est vide
-  if (numberRegex.test(number) == true) {
+  if ((number != "") && (numberRegex.test(number) == true)) {
     console.log("c'est un nombre");
     return true;
   } else{
