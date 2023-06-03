@@ -29,13 +29,33 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // close modal event
 closeBtn.addEventListener("click", closehModal);
 
-// firs name event
-first.addEventListener('focusout', isName);
+// first name event
+// ! FIXME: le test ne se refait pas si on corrige le nom
+first.addEventListener('focusout', isFirst(), true);
+first.addEventListener('focusin', removeError(), true);
+
 // last name event
-last.addEventListener('focusout', isName);
+//last.addEventListener('focusout', isName);
 
 // validation form event
-myForm.addEventListener('submit', validate);
+myForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  validate();
+});
+
+/*myForm.addEventListener('submit', function(e){
+  if (isName(first.value)
+      && isName(last.value)
+      && validEmail(email.value)
+      && isNumber(quantity.value)
+      && isLocation()
+      && cgv()) {&
+    console.log('OK')
+  }
+  console.log('PAS OK')
+  e.preventDefault()
+
+})*/
 
 // cgv checkbox event
 cgvCheckbox.addEventListener('click', cgvCheck)
@@ -81,9 +101,9 @@ function cgvCheck() {
   * @returns boolean
   */
  function validate(){
-  
-  if (isName(first.value)
-      && isName(last.value)
+  console.log('event')
+  if (isFirst()
+      //&& isName(last.value)
       && validEmail(email.value)
       && isNumber(quantity.value)
       && isLocation()
@@ -96,6 +116,10 @@ function cgvCheck() {
 
 }
 
+function removeError() {
+    this.parentElement.setAttribute("data-error-visible", false)
+}
+
 /**
  * Name validation
  * retourne true si <= 2 caracters et est au bon format faux sinon
@@ -104,18 +128,30 @@ function cgvCheck() {
  */
 function isName (name){
   let nameRegex = /^[a-zA-Z-\s]+$/; // regex 
-  if ((name.length > 2) && nameRegex.test(name)) {
+  if ((name > 2) && nameRegex.test(name)) {
     console.log(name + " est un nom")
-    // test si data data-error-visible
-    
-    if (this.parentElement.getAttribute("data-error-visible") == true){
-      this.parentElement.removeAttribute("data-error-visible")
-    }
+    //this.parentElement.setAttribute("data-error-visible", false)
     return true
   }
   console.log(name + " n'est pas un nom")
-  this.parentElement.setAttribute("data-error-visible", true)
+  console.log(name)
   return false
+}
+
+function isFirst() {
+  console.log(this)
+  this.parentElement.setAttribute("data-error-visible", false)
+  if (isName(first.value)) {
+    return true
+  }
+  this.parentElement.setAttribute("data-error-visible", true)
+}
+
+function isLast() {
+  if (isName(last.value)) {
+    return true
+  }
+  this.parentElement.setAttribute("data-error-visible", true)
 }
 
 /**
