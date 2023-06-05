@@ -34,6 +34,7 @@ const quantityData = document.getElementById('quantityData')
 const locationData = document.getElementById('locationData')
 
 const cgvCheckbox = document.getElementById('checkbox1')
+const cgvData = document.getElementById('cgvData')
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -91,12 +92,10 @@ function closehModal() {
 function cgvCheck() {
   if (cgvCheckbox.checked === true) {
     console.log('coché');
-    return 'coché'
+    return true
   }
-  else{
-    console.log('décoché');
-    return 'décoché'
-  }
+  console.log('décoché');
+  return false
 }
 
  /**
@@ -117,9 +116,8 @@ function cgvCheck() {
       && isLast()
       && isEmail()
       && isQuantity()
-      /*&& isLocation()
+      && isLocation()
       && cgv()
-      */
       ) {
     return true;
   }
@@ -229,7 +227,7 @@ function isNumber(number) {
  * retourne vrai dés qu'une ville est coché
  * @returns boolean
  */
-function isLocation () {
+function isLocationChecked () {
   let i = 1;
   while (document.getElementById('location'+i)) {
     if (document.getElementById('location'+i).checked) {
@@ -241,15 +239,31 @@ function isLocation () {
   console.log('Pas de ville checked');
   return false;
 }
+/**
+ * test si une ville est sélectionnée
+ * @returns boolean
+ */
+function isLocation() {
+  if (isLocationChecked()) {
+    locationData.setAttribute("data-error-visible", false)
+    locationData.setAttribute("data-error","")
+    return true
+  }
+  locationData.setAttribute("data-error-visible", true)
+  locationData.setAttribute("data-error","Veuillez sélectionner une ville.")
+}
 
 /**
  * test si la case CGV est coché
  * @returns boolean
  */
 function cgv () {
-  if (cgvCheck() == 'coché') {
+  if (cgvCheck()) {
+    cgvData.setAttribute("data-error-visible", false)
+    cgvData.setAttribute("data-error","")
     return true;
   }
   console.log('cgv pas checked');
-  return false;
+  cgvData.setAttribute("data-error-visible", true)
+  cgvData.setAttribute("data-error","Vous devez vérifier que vous acceptez les termes et conditions.")
 }
