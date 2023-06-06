@@ -1,5 +1,11 @@
 
-// TODO: Ajouter confirmation quand envoi réussi
+// TODO: Ajouter confirmation quand envoi réussi :
+/**
+ * faire un input checkbox hidden confirm
+ * si le formulaire est valider confirm = checked
+ * sur index.html on teste si confirm.checked 
+ *  on fait apparaitre la div de confirmation
+ */
 // TODO: Tests manuels
 
 
@@ -41,7 +47,32 @@ const locationData = document.getElementById('locationData')
 const cgvCheckbox = document.getElementById('checkbox1')
 const cgvData = document.getElementById('cgvData')
 
+const confirm = document.getElementById('confirm')
 const confirmMessage = document.getElementById('confirmMessage')
+
+
+// CONFIRMATION 
+
+function $_GET(param) {
+	var vars = {};
+	window.location.href.replace( location.hash, '' ).replace( 
+		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+		function( m, key, value ) { // callback
+			vars[key] = value !== undefined ? value : '';
+		}
+	);
+
+	if ( param ) {
+		return vars[param] ? vars[param] : null;	
+	}
+	return vars;
+}
+
+console.log("CONIFIRMATION : " + $_GET('confirm'))
+if ($_GET('confirm') === 'true') {
+  confirmMessage.innerHTML = "Merci !!!"
+}
+// CONFIRMATION END
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -133,8 +164,11 @@ function cgvCheck() {
       && isLocation()
       && cgv()
       ) {
-    confirmMessage.innerHTML += 'CONFIRME !!'
     console.log('CONFIRME !!')
+    confirm.value = 'true'
+    /*if (myForm.checkValidity() == true) {
+      document.getElementById("confirmDiv").innerHTML = "Merci!!!";
+    }*/
     return true;
   }
 }
