@@ -1,3 +1,8 @@
+
+// TODO: Ajouter confirmation quand envoi réussi
+// TODO: Tests manuels
+
+
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -7,9 +12,6 @@ function editNav() {
   }
 }
 
-// TODO: Ajouter validation ou messages d'erreur
-// TODO: Ajouter confirmation quand envoi réussi
-// TODO: Tests manuels
 
 //  DOM Elements
 const modalbg = document.querySelector(".bground");
@@ -28,6 +30,9 @@ const lastData = document.getElementById('lastData');
 const email = document.getElementById('email')
 const emailData = document.getElementById('emailData')
 
+const birthdate = document.getElementById('birthdate')
+const birthdateData = document.getElementById('birthdateData')
+
 const quantity = document.getElementById('quantity')
 const quantityData = document.getElementById('quantityData')
 
@@ -35,6 +40,8 @@ const locationData = document.getElementById('locationData')
 
 const cgvCheckbox = document.getElementById('checkbox1')
 const cgvData = document.getElementById('cgvData')
+
+const confirmMessage = document.getElementById('confirmMessage')
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -58,6 +65,12 @@ last.addEventListener('focusout', function(e){
 email.addEventListener('focusout', function(e){
   e.preventDefault()
   isEmail()
+});
+
+// birthdate event
+birthdate.addEventListener('focusout', function(e){
+  e.preventDefault()
+  isBirthdate()
 });
 
 // quantity event
@@ -115,13 +128,52 @@ function cgvCheck() {
   if (isFirst()
       && isLast()
       && isEmail()
+      && isBirthdate()
       && isQuantity()
       && isLocation()
       && cgv()
       ) {
+    confirmMessage.innerHTML += 'CONFIRME !!'
+    console.log('CONFIRME !!')
     return true;
   }
 }
+
+/**
+ * Validation de la date d'anniversaire
+ * @returns Boolean
+ */
+function isBirthdate() {
+  console.log(isBirthdateValid(birthdate.value))
+  if (isBirthdateValid(birthdate.value)==='true') {
+    birthdateData.setAttribute("data-error-visible", false)
+    birthdateData.setAttribute("data-error","")
+    return true
+  }
+  birthdateData.setAttribute("data-error-visible", true)
+  birthdateData.setAttribute("data-error",isBirthdateValid(birthdate.value))
+  return false
+}
+
+/**
+ * Renvoi le message d'erreur suivant la date donnée
+ * @param {date} date 
+ * @returns string
+ */
+function isBirthdateValid(date) {
+  let d = new Date(date)
+  if (d.getFullYear() < 1923) {
+    message = "Donnez un date correcte"
+  } else{
+    if (d.getFullYear() > 2005) {
+      message= "Vous n'êtes pas majeur"
+    } else{
+      message = 'true'
+    }
+  }
+  return message
+}
+
 
 /**
  * Name validation
@@ -213,11 +265,13 @@ function isQuantity() {
  */
 function isNumber(number) {
   let numberRegex = /^[0-9]+$/;
-  if ((number != "") && (numberRegex.test(number) == true)) {
-    console.log("c'est un nombre");
+  let num = Number(number)
+  if ((number != "") && (Number.isInteger(num))) {
+  //if ((number != "") && (numberRegex.test(number) == true)) {
+      console.log(Number.isInteger(num) + "c'est un nombre");
     return true;
   } else{
-    console.log("c'est pas un nombre");
+    console.log(Number.isInteger(num) + "c'est pas un nombre");
     return false;
   }
 }
