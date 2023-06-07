@@ -25,6 +25,7 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelector("#btn-close");
 
+
 const myForm = document.getElementById('myForm');
 
 const first = document.getElementById('first');
@@ -49,10 +50,16 @@ const cgvData = document.getElementById('cgvData')
 
 const confirm = document.getElementById('confirm')
 const confirmMessage = document.getElementById('confirmMessage')
+const closeBtnConfirm = document.querySelector("#btn-closeConfirm");
+const closeBtnConfirm2 = document.querySelector("#btn-closeConfirm2");
 
 
 // CONFIRMATION 
-
+/**
+ * équivalant de la fonction PHP
+ * @param {string} param 
+ * @returns string
+ */
 function $_GET(param) {
 	var vars = {};
 	window.location.href.replace( location.hash, '' ).replace( 
@@ -70,7 +77,7 @@ function $_GET(param) {
 
 console.log("CONIFIRMATION : " + $_GET('confirm'))
 if ($_GET('confirm') === 'true') {
-  confirmMessage.innerHTML = "Merci !!!"
+  confirmMessage.setAttribute("style","display:block")
 }
 // CONFIRMATION END
 
@@ -79,6 +86,10 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal event
 closeBtn.addEventListener("click", closehModal);
+
+// close modal confirm event
+closeBtnConfirm.addEventListener("click", closeConfirmMessage);
+//closeBtnConfirm2.addEventListener("click", closeConfirmMessage)
 
 // first name event
 first.addEventListener('focusout', function(e){
@@ -132,6 +143,12 @@ function closehModal() {
   modalbg.style.display = "none";
 }
 
+// close confirm modal form
+function closeConfirmMessage() {
+  //confirm.setAttribute("value","false")
+  confirmMessage.style.display = "none";
+}
+
 // cgv check event
 function cgvCheck() {
   if (cgvCheckbox.checked === true) {
@@ -164,11 +181,8 @@ function cgvCheck() {
       && isLocation()
       && cgv()
       ) {
-    console.log('CONFIRME !!')
-    confirm.value = 'true'
-    /*if (myForm.checkValidity() == true) {
-      document.getElementById("confirmDiv").innerHTML = "Merci!!!";
-    }*/
+        confirm.value = 'true'
+        console.log('CONFIRME !!')
     return true;
   }
 }
