@@ -1,10 +1,5 @@
 
-/**
- * faire un input checkbox hidden confirm
- * si le formulaire est valider confirm = checked
- * sur index.html on teste si confirm.checked 
- *  on fait apparaitre la div de confirmation
- */
+
 // TODO: Tests manuels
 
 
@@ -50,13 +45,13 @@ const cgvData = document.getElementById('cgvData')
 const confirm = document.getElementById('confirm')
 const confirmMessage = document.getElementById('confirmMessage')
 const closeBtnConfirm = document.querySelector("#btn-closeConfirm");
-const closeBtnConfirm2 = document.querySelector("#btn-closeConfirm2");
+const closeBtnConfirm2 = document.querySelector("#closeBtnConfirm2");
 
 
 // CONFIRMATION 
 /**
  * équivalant de la fonction PHP
- * @param {string} param 
+ * @param {string : url du get} param 
  * @returns string
  */
 function $_GET(param) {
@@ -88,8 +83,7 @@ closeBtn.addEventListener("click", closehModal);
 
 // close modal confirm event
 closeBtnConfirm.addEventListener("click", closeConfirmMessage);
-// TODO(Faab): closeBtnConfirm2 fermer sur bouton FERMER
-//closeBtnConfirm2.addEventListener("click", closeConfirmMessage)
+closeBtnConfirm2.addEventListener("click", closeConfirmMessage)
 
 // first name event
 first.addEventListener('focusout', function(e){
@@ -145,9 +139,9 @@ function closehModal() {
 
 // close confirm modal form
 function closeConfirmMessage() {
-  //confirm.setAttribute("value","false")
   confirmMessage.style.display = "none";
 }
+
 
 // cgv check event
 function cgvCheck() {
@@ -185,6 +179,8 @@ function cgvCheck() {
         console.log('CONFIRME !!')
     return true;
   }
+  confirm.value = 'false'
+  console.log('NON CONFIRME !!')
 }
 
 /**
