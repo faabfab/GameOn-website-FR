@@ -1,5 +1,4 @@
 
-// TODO: Ajouter confirmation quand envoi réussi :
 /**
  * faire un input checkbox hidden confirm
  * si le formulaire est valider confirm = checked
@@ -89,6 +88,7 @@ closeBtn.addEventListener("click", closehModal);
 
 // close modal confirm event
 closeBtnConfirm.addEventListener("click", closeConfirmMessage);
+// TODO(Faab): closeBtnConfirm2 fermer sur bouton FERMER
 //closeBtnConfirm2.addEventListener("click", closeConfirmMessage)
 
 // first name event
@@ -209,6 +209,9 @@ function isBirthdate() {
  * @returns string
  */
 function isBirthdateValid(date) {
+  if (date === '') {
+    return 'Veillez entrer une date'
+  }
   let d = new Date(date)
   if (d.getFullYear() < 1923) {
     message = "Donnez un date correcte"
