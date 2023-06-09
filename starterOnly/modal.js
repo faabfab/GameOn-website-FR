@@ -49,6 +49,11 @@ const closeBtnConfirm2 = document.querySelector("#closeBtnConfirm2");
 
 
 // CONFIRMATION 
+console.log("CONIFIRMATION : " + $_GET('confirm'))
+if ($_GET('confirm') === 'true') {
+  confirmMessage.setAttribute("style","display:block")
+}
+
 /**
  * équivalant javascript de la fonction PHP $_GET()
  * retourne la valeur de param
@@ -70,10 +75,6 @@ function $_GET(param) {
 	return vars;
 }
 
-console.log("CONIFIRMATION : " + $_GET('confirm'))
-if ($_GET('confirm') === 'true') {
-  confirmMessage.setAttribute("style","display:block")
-}
 // CONFIRMATION END
 
 // launch modal event
@@ -143,7 +144,6 @@ function closeConfirmMessage() {
   confirmMessage.style.display = "none";
 }
 
-
 // cgv check event
 function cgvCheck() {
   if (cgvCheckbox.checked === true) {
@@ -176,8 +176,8 @@ function cgvCheck() {
       && isLocation()
       && cgv()
       ) {
-        confirm.value = 'true'
-        console.log('CONFIRME !!')
+    confirm.value = 'true'
+    console.log('CONFIRME !!')
     return true;
   }
   confirm.value = 'false'
