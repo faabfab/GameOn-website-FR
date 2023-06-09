@@ -50,7 +50,8 @@ const closeBtnConfirm2 = document.querySelector("#closeBtnConfirm2");
 
 // CONFIRMATION 
 /**
- * équivalant de la fonction PHP
+ * équivalant javascript de la fonction PHP $_GET()
+ * retourne la valeur de param
  * @param {string : url du get} param 
  * @returns string
  */
@@ -64,7 +65,7 @@ function $_GET(param) {
 	);
 
 	if ( param ) {
-		return vars[param] ? vars[param] : null;	
+		return vars[param] ? vars[param] : null;
 	}
 	return vars;
 }
@@ -221,7 +222,6 @@ function isBirthdateValid(date) {
   return message
 }
 
-
 /**
  * Name validation
  * retourne true si <= 2 caracters et est au bon format faux sinon
@@ -311,7 +311,7 @@ function isQuantity() {
  * @returns boolean
  */
 function isNumber(number) {
-  let numberRegex = /^[0-9]+$/;
+  //let numberRegex = /^[0-9]+$/;
   let num = Number(number)
   if ((number != "") && (Number.isInteger(num))) {
   //if ((number != "") && (numberRegex.test(number) == true)) {
