@@ -1,8 +1,3 @@
-
-
-// TODO: Tests manuels
-
-
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -11,7 +6,6 @@ function editNav() {
     x.className = "topnav";
   }
 }
-
 
 //  DOM Elements
 const modalbg = document.querySelector(".bground");
@@ -211,7 +205,7 @@ function isBirthdateValid(date) {
   }
   let d = new Date(date)
   if (d.getFullYear() < 1923) {
-    message = "Donnez un date correcte"
+    message = "Donnez une date correcte"
   } else{
     if (d.getFullYear() > 2005) {
       message= "Vous n'êtes pas majeur"
