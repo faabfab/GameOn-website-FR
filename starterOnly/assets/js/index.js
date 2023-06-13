@@ -200,9 +200,11 @@ function isBirthdate() {
  * @returns string
  */
 function isBirthdateValid(date) {
+  console.log(date + ": DATE")
   if (date === '') {
     return 'Veillez entrer une date'
   }
+  let message = ''
   let d = new Date(date)
   if (d.getFullYear() < 1923) {
     message = "Donnez une date correcte"
