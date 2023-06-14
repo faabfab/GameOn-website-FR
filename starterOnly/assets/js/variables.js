@@ -10,4 +10,4 @@ const quantityData = document.getElementById('quantityData')
 const locationData = document.getElementById('locationData')
 const cgvCheckbox = document.getElementById('checkbox1')
 
-export {modalbg, confirmMessage,firstData,lastData,email,emailData, birthdateData,quantity,quantityData,locationData,cgvCheckbox}
+export { modalbg, confirmMessage, firstData, lastData, email, emailData, birthdateData, quantity, quantityData, locationData, cgvCheckbox }
