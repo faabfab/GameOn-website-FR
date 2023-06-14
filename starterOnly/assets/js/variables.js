@@ -1,4 +1,3 @@
-//export const navEdit = document.getElementById('navEdit');
 const modalbg = document.querySelector(".bground");
 const confirmMessage = document.getElementById('confirmMessage')
 const firstData = document.getElementById('firstData');
