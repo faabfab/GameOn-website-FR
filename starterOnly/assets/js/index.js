@@ -56,7 +56,7 @@ email.addEventListener('focusout', function (e) {
 });
 
 // birthdate event
-const birthdate = document.getElementById('birthdate')
+import { birthdate } from "./variables.js";
 import { isBirthdate } from "./formValidation.js";
 birthdate.addEventListener('focusout', function (e) {
   e.preventDefault()

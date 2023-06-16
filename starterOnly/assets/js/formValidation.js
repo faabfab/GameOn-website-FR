@@ -76,6 +76,7 @@ function validEmail(mail) {
 }
 
 import { birthdateData } from "./variables.js";
+import { birthdate } from "./variables.js";
 /**
  * Validation de la date d'anniversaire
  * @returns Boolean
