@@ -1,6 +1,5 @@
 // CONFIRMATION 
 import { $_GET } from "./getModule.js";
-console.log("CONIFIRMATION : " + $_GET('confirm'))
 if ($_GET('confirm') === 'true') {
   confirmMessage.setAttribute("style", "display:block")
 }

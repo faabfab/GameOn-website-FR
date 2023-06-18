@@ -7,10 +7,8 @@
 function isName(name) {
   let nameRegex = /^[a-zA-Z-\s]+$/; // regex 
   if ((name.length > 2) && nameRegex.test(name)) {
-    console.log(name + " est un nom")
     return true
   }
-  console.log(name + " n'est pas un nom")
   return false
 }
 
@@ -20,7 +18,6 @@ import { firstData } from "./variables.js";
  * @returns boulean
  */
 function isFirst() {
-  console.log(first.value)
   if (isName(first.value)) {
     firstData.setAttribute("data-error-visible", false)
     firstData.setAttribute("data-error", "")
@@ -70,7 +67,6 @@ function isEmail() {
 function validEmail(mail) {
   let mailRegex = /^[a-z0-9-\.]+@[a-z0-9.-]+\.[a-z]{2,4}$/
   if (mail != "" && mailRegex.test(mail) == true) {
-    console.log("mail valide")
     return true;
   }
 }
@@ -82,7 +78,6 @@ import { birthdate } from "./variables.js";
  * @returns Boolean
  */
 function isBirthdate() {
-  console.log(isBirthdateValid(birthdate.value))
   if (isBirthdateValid(birthdate.value) === 'true') {
     birthdateData.setAttribute("data-error-visible", false)
     birthdateData.setAttribute("data-error", "")
@@ -99,7 +94,6 @@ function isBirthdate() {
  * @returns string
  */
 function isBirthdateValid(date) {
-  console.log(date + ": DATE")
   if (date === '') {
     return 'Veillez entrer une date'
   }
@@ -143,10 +137,8 @@ function isNumber(number) {
   let num = Number(number)
   if ((number != "") && (Number.isInteger(num))) {
     //if ((number != "") && (numberRegex.test(number) == true)) {
-    console.log(Number.isInteger(num) + "c'est un nombre");
     return true;
   } else {
-    console.log(Number.isInteger(num) + "c'est pas un nombre");
     return false;
   }
 }
@@ -161,12 +153,10 @@ function isLocationChecked() {
   let i = 1;
   while (document.getElementById('location' + i)) {
     if (document.getElementById('location' + i).checked) {
-      console.log(document.getElementById('location' + i).value);
       return true;
     }
     i++;
   }
-  console.log('Pas de ville checked');
   return false;
 }
 /**
@@ -188,10 +178,8 @@ const cgvData = document.getElementById('cgvData')
 // cgv check event
 function cgvCheck(value) {
   if (value === true) {
-    console.log('coché');
     return true
   }
-  console.log('décoché');
   return false
 }
 
@@ -205,7 +193,6 @@ function cgv() {
     cgvData.setAttribute("data-error", "")
     return true;
   }
-  console.log('cgv pas checked');
   cgvData.setAttribute("data-error-visible", true)
   cgvData.setAttribute("data-error", "Vous devez vérifier que vous acceptez les termes et conditions.")
 }
@@ -236,11 +223,9 @@ function validate() {
     && cgv()
   ) {
     confirm.value = 'true'
-    console.log('CONFIRME !!')
     return true;
   }
   confirm.value = 'false'
-  console.log('NON CONFIRME !!')
 }
 
 export { isFirst, isLast, isEmail, isBirthdate, isQuantity, isLocation, cgv, validate }
